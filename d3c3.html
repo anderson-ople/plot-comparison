@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Scatter Chart</title>
+
+	<!-- Chart js -->
+	<script src="js/Chart.min.js"></script>
+	<script src="js/utils.js"></script>
+	<style>
+	canvas {
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+	}
+	</style>
+	<!-- -->
+
+	<!-- D3 js -->
+	<script type="text/javascript" src="http://mbostock.github.com/d3/d3.v2.js"></script>
+	<style>
+	.chart {
+				
+	}
+	.main text {
+		font: 10px sans-serif;
+	}
+	.axis line, .axis path {
+		shape-rendering: crispEdges;
+		stroke: black;
+		fill: none;
+	}
+	circle {
+		fill: steelblue;
+	}
+
+	</style>
+	<!-- -->
+</head>
+
+<body>
+	<h1>Chartjs</h1>
+	<div style="width:75%">
+		<canvas id="canvas"></canvas>
+	</div>
+	<button id="randomizeData">Randomize Data</button>
+	<script>
+		var color = Chart.helpers.color;
+		var data = [];
+		function generateData() {
+			for (var i = 0; i < 50; i++) {
+				data.push({
+					x: randomScalingFactor(),
+					y: randomScalingFactor()
+				});
+			}
+			return data;
+		}
+
+		var scatterChartData = {
+			datasets: [{
+				label: 'My First dataset',
+				borderColor: window.chartColors.red,
+				backgroundColor: color(window.chartColors.red).alpha(0.2).rgbString(),
+				data: generateData()
+			}, {
+				label: 'My Second dataset',
+				borderColor: window.chartColors.blue,
+				backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
+				data: generateData()
+			}]
+		};
+
+		window.onload = function() {
+			var ctx = document.getElementById('canvas').getContext('2d');
+			window.myScatter = Chart.Scatter(ctx, {
+				data: scatterChartData,
+				options: {
+					title: {
+						display: true,
+						text: 'Chart.js Scatter Chart'
+					},
+				}
+			});
+		};
+
+		document.getElementById('randomizeData').addEventListener('click', function() {
+			scatterChartData.datasets.forEach(function(dataset) {
+				dataset.data = dataset.data.map(function() {
+					return {
+						x: randomScalingFactor(),
+						y: randomScalingFactor()
+					};
+				});
+			});
+			window.myScatter.update();
+		});
+	</script>
+
+	<h1>D3 js</h1>
+	<div class='content'>
+          <!-- /the chart goes here -->
+    </div>
+    <script type="text/javascript" src="js/scatterchart.js"></script>
+</body>
+
+</html>
+
