@@ -22,8 +22,8 @@ var scatterChartData = {
 	data: generateData(data_setosa)
     }, {
 	label: 'Versicolor dataset',
-	borderColor: window.chartColors.red,
-	backgroundColor: color(window.chartColors.red).alpha(0.6).rgbString(),
+	borderColor: window.chartColors.orange,
+	backgroundColor: color(window.chartColors.orange).alpha(0.6).rgbString(),
 	data: generateData(data_versicolor)
     }, {
 	label: 'Virginica dataset',
