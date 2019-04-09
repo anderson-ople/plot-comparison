@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Flot Examples: Series Types</title>
+    <link href="js/flot/examples.css" rel="stylesheet" type="text/css">
+	<script language="javascript" type="text/javascript" src="js/flot/jquery.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flot/jquery.event.drag.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flot/jquery.mousewheel.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flot/jquery.canvaswrapper.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flot/jquery.colorhelpers.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flot/jquery.flot.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flot/jquery.flot.saturated.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flot/jquery.flot.browser.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flot/jquery.flot.drawSeries.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flot/jquery.flot.errorbars.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flot/jquery.flot.uiConstants.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flot/jquery.flot.logaxis.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flot/jquery.flot.symbol.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flot/jquery.flot.flatdata.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flot/jquery.flot.navigate.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flot/jquery.flot.fillbetween.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flot/jquery.flot.stack.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flot/jquery.flot.touchNavigate.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flot/jquery.flot.hover.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flot/jquery.flot.touch.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flot/jquery.flot.time.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flot/jquery.flot.axislabels.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flot/jquery.flot.selection.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flot/jquery.flot.composeImages.js"></script>
+	<script language="javascript" type="text/javascript" src="js/flot/jquery.flot.legend.js"></script>
+	<script type="text/javascript">
+
+	$(function() {
+
+		$("<div id='tooltip'></div>").css({
+			position: "absolute",
+			display: "none",
+			border: "1px solid #fdd",
+			padding: "2px",
+			"background-color": "#fee",
+			opacity: 0.80
+		}).appendTo("body");
+
+		var data_setosa = [[3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, 3.7, 3.4, 3.0, 3.0, 4.0, 4.4, 3.9, 3.5, 3.8, 3.8, 3.4, 3.7, 3.6, 3.3, 3.4, 3.0, 3.4, 3.5, 3.4, 3.2, 3.1, 3.4, 4.1, 4.2, 3.1, 3.2, 3.5, 3.6, 3.0, 3.4, 3.5, 2.3, 3.2, 3.5, 3.8, 3.0, 3.8, 3.2, 3.7, 3.3],[0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.1, 0.2, 0.4, 0.4, 0.3, 0.3, 0.3, 0.2, 0.4, 0.2, 0.5, 0.2, 0.2, 0.4, 0.2, 0.2, 0.2, 0.2, 0.4, 0.1, 0.2, 0.2, 0.2, 0.2, 0.1, 0.2, 0.2, 0.3, 0.3, 0.2, 0.6, 0.4, 0.3, 0.2, 0.2, 0.2, 0.2]]
+		var data_versicolor =[[3.2, 3.2, 3.1, 2.3, 2.8, 2.8, 3.3, 2.4, 2.9, 2.7, 2.0, 3.0, 2.2, 2.9, 2.9, 3.1, 3.0, 2.7, 2.2, 2.5, 3.2, 2.8, 2.5, 2.8, 2.9, 3.0, 2.8, 3.0, 2.9, 2.6, 2.4, 2.4, 2.7, 2.7, 3.0, 3.4, 3.1, 2.3, 3.0, 2.5, 2.6, 3.0, 2.6, 2.3, 2.7, 3.0, 2.9, 2.9, 2.5, 2.8],[1.4, 1.5, 1.5, 1.3, 1.5, 1.3, 1.6, 1.0, 1.3, 1.4, 1.0, 1.5, 1.0, 1.4, 1.3, 1.4, 1.5, 1.0, 1.5, 1.1, 1.8, 1.3, 1.5, 1.2, 1.3, 1.4, 1.4, 1.7, 1.5, 1.0, 1.1, 1.0, 1.2, 1.6, 1.5, 1.6, 1.5, 1.3, 1.3, 1.3, 1.2, 1.4, 1.2, 1.0, 1.3, 1.2, 1.3, 1.3, 1.1, 1.3]]
+		var data_virginica = [[3.3, 2.7, 3.0, 2.9, 3.0, 3.0, 2.5, 2.9, 2.5, 3.6, 3.2, 2.7, 3.0, 2.5, 2.8, 3.2, 3.0, 3.8, 2.6, 2.2, 3.2, 2.8, 2.8, 2.7, 3.3, 3.2, 2.8, 3.0, 2.8, 3.0, 2.8, 3.8, 2.8, 2.8, 2.6, 3.0, 3.4, 3.1, 3.0, 3.1, 3.1, 3.1, 2.7, 3.2, 3.3, 3.0, 2.5, 3.0, 3.4, 3.0],[2.5, 1.9, 2.1, 1.8, 2.2, 2.1, 1.7, 1.8, 1.8, 2.5, 2.0, 1.9, 2.1, 2.0, 2.4, 2.3, 1.8, 2.2, 2.3, 1.5, 2.3, 2.0, 2.0, 1.8, 2.1, 1.8, 1.8, 1.8, 2.1, 1.6, 1.9, 2.0, 2.2, 1.5, 1.4, 2.3, 2.4, 1.8, 1.8, 2.1, 2.4, 2.3, 1.9, 2.3, 2.5, 2.3, 1.9, 2.0, 2.3, 1.8]]		
+
+		var setosa = [];
+		for (var i = 0; i < 50; i++) {
+			setosa.push([data_setosa[0][i], data_setosa[1][i]]);
+		}
+
+		var versicolor = [];
+		for (var i = 0; i < 50; i++) {
+			versicolor.push([data_versicolor[0][i], data_versicolor[1][i]]);
+		}
+
+		var virginica = [];
+		for (var i = 0; i < 50; i++) {
+			virginica.push([data_virginica[0][i], data_virginica[1][i]]);
+		}
+		
+
+		$.plot("#placeholder", [
+			{
+				data: setosa,
+				color: "#0000ff",
+				points: { show: true },
+				label: "Setosa"
+			},
+			{
+				data: versicolor,
+				color: "#ffa500",
+				points: { show: true },
+				label: "Versicolor"
+			},
+			{
+				data: virginica,
+				color: "#00ff00",
+				points: { show: true },
+				label: "Virginica"
+			}
+		],
+		{
+			grid: {
+				hoverable: true,
+				clickable: true
+			},
+			zoom: {
+				interactive: true
+			},
+			pan: {
+				interactive: true
+			},
+			legend: {
+				position: "ne",
+				show: true
+			}
+		});
+
+		$("#placeholder").bind("plothover", function (event, pos, item) {
+
+			if (item) {
+				var x = item.datapoint[0].toFixed(2),
+					y = item.datapoint[1].toFixed(2);
+
+				$("#tooltip").html(item.series.label + ": " + x + ", " + y)
+					.css({top: item.pageY+5, left: item.pageX+5})
+					.fadeIn(200);
+			} else {
+				$("#tooltip").hide();
+			}
+		});
+
+		$("#placeholder").bind("plothovercleanup", function (event, pos, item) {
+			$("#tooltip").hide();
+		});
+
+		// Add the Flot version string to the footer
+
+		$("#footer").prepend("Flot " + $.plot.version + " &ndash; ");
+	});
+
+	</script>
+</head>
+<body>
+
+<h1>Flot</h1>
+	<div id="content">
+		<div class="demo-container">
+			<div id="placeholder" class="demo-placeholder"></div>
+		</div>
+	</div>
+</body>
+</html>
+
