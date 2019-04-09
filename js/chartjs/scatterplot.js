@@ -10,7 +10,6 @@ function generateData(data_array) {
 	    y: data_array[1][i]
 	});
     }
-    console.log(data);
     return data;
 }
 
@@ -59,15 +58,3 @@ window.onload = function() {
 	}
     });
 };
-
-document.getElementById('randomizeData').addEventListener('click', function() {
-    scatterChartData.datasets.forEach(function(dataset) {
-	dataset.data = dataset.data.map(function() {
-	    return {
-		x: randomScalingFactor(),
-		y: randomScalingFactor()
-	    };
-	});
-    });
-    window.myScatter.update();
-});
