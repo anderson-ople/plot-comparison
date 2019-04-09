@@ -17,3 +17,14 @@ One issue is that the zooming feature is quite limited.
 Only the `x` axis can be zoomed (see this [link](https://github.com/c3js/c3/issues/630)).
 However, *probably* this could be solved handling the `D3` chart directly.
 Some additional research is needed.
+
+
+# Plotly
+
+[Plotly](https://plot.ly/javascript/) is built on top of d3.js and stack.gl.
+`plotly.js` is a high-level, declarative charting library that ships with 20 chart types,
+including 3D charts, statistical graphs, and SVG maps.
+
+It is very complete with zoom, pan, box select and export features.
+
+Until now, _it is the best choice_.
